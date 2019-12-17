@@ -62,6 +62,8 @@ jobs:
     # We just need to do a tools install.
     - template: azure-pipelines.tools.yml
 
+    # TODO: it actually seems faster just to download and extract artifacts rather than run yarn again.
+    # 1 min (download and extract) vs. 2 min (yarn)
     - script: |
         yarn
       displayName: yarn
