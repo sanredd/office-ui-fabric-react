@@ -8,6 +8,7 @@ import { IBaseFloatingPickerProps, BaseFloatingPicker } from '../../FloatingPick
 import { BaseSelectedItemsList, IBaseSelectedItemsListProps } from '../../SelectedItemsList';
 import { FocusZone, FocusZoneDirection } from '../../FocusZone';
 import { Selection, SelectionMode, SelectionZone } from '../../Selection';
+import { IBaseFloatingSuggestionsProps } from '../FloatingSuggestions';
 // tslint:disable-next-line:no-any
 const styles: any = stylesImport;
 
@@ -25,7 +26,7 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
   protected root = React.createRef<HTMLDivElement>();
   protected input = React.createRef<Autofill>();
   protected selection: Selection;
-  protected floatingPickerProps: IBaseFloatingPickerProps<T>;
+  protected floatingPickerProps: IBaseFloatingSuggestionsProps<T>;
   protected selectedItemsListProps: IBaseSelectedItemsListProps<T>;
 
   constructor(basePickerProps: P) {
@@ -150,18 +151,9 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
   }
 
   protected renderFloatingPicker(): JSX.Element {
-    const FloatingPicker: React.ComponentType<IBaseFloatingPickerProps<T>> = this.props.onRenderFloatingPicker;
+    const FloatingPicker: React.ComponentType<IBaseFloatingSuggestionsProps<T>> = this.props.onRenderFloatingPicker;
     return (
-      <FloatingPicker
-        componentRef={this.floatingPicker}
-        onChange={this._onSuggestionSelected}
-        onSuggestionsHidden={this._onSuggestionsShownOrHidden}
-        onSuggestionsShown={this._onSuggestionsShownOrHidden}
-        inputElement={this.input.current ? this.input.current.inputElement : undefined}
-        selectedItems={this.items}
-        suggestionItems={this.props.suggestionItems ? this.props.suggestionItems : undefined}
-        {...this.floatingPickerProps}
-      />
+      <FloatingPicker targetElement={this.input.current ? this.input.current.inputElement : undefined} {...this.floatingPickerProps} />
     );
   }
 

@@ -10,6 +10,7 @@ import { IRenderFunction } from '../../../Utilities';
 import { IContextualMenuItem } from '../../../ContextualMenu';
 import { IBaseFloatingPickerProps } from '../../../FloatingPicker';
 import { EditingItem } from './Items/EditingItem';
+import { IBaseFloatingSuggestionsProps } from '../../FloatingSuggestions';
 
 /**
  * {@docCategory SelectedPeopleList}
@@ -42,7 +43,7 @@ export interface ISelectedPeopleProps extends IBaseSelectedItemsListProps<IExten
   editMenuItemText?: string;
   getEditingItemText?: (item: IExtendedPersonaProps) => string;
   onRenderFloatingPicker?: React.ComponentType<IBaseFloatingPickerProps<IPersonaProps>>;
-  floatingPickerProps?: IBaseFloatingPickerProps<IPersonaProps>;
+  floatingPickerProps?: IBaseFloatingSuggestionsProps<IPersonaProps>;
 }
 
 /**
@@ -88,7 +89,7 @@ export class SelectedPeopleList extends BasePeopleSelectedItemsList {
         <EditingItem
           {...props}
           onRenderFloatingPicker={this.props.onRenderFloatingPicker}
-          floatingPickerProps={this.props.floatingPickerProps}
+          // floatingPickerProps={this.props.floatingPickerProps}
           onEditingComplete={this._completeEditing}
           getEditingItemText={this.props.getEditingItemText}
         />

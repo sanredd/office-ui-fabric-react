@@ -9,6 +9,7 @@ import {
   IBaseFloatingPickerProps,
   IBaseFloatingPickerSuggestionProps
 } from 'office-ui-fabric-react/lib/FloatingPicker';
+import { BaseFloatingSuggestions, IBaseFloatingSuggestionsProps } from 'office-ui-fabric-react/lib/components/FloatingSuggestions';
 import { ISelectedPeopleProps, SelectedPeopleList, IExtendedPersonaProps } from 'office-ui-fabric-react/lib/SelectedItemsList';
 import { IFocusZoneProps, FocusZoneTabbableElements } from 'office-ui-fabric-react/lib/FocusZone';
 import { mergeStyleSets, getTheme, IStyle, IProcessedStyleSet } from 'office-ui-fabric-react/lib/Styling';
@@ -29,7 +30,7 @@ interface IClassNames {
 
 export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeoplePickerExampleState> {
   private _picker = React.createRef<ExtendedPeoplePicker>();
-  private _floatingPickerProps: IBaseFloatingPickerProps<IPersonaProps>;
+  private _floatingPickerProps: IBaseFloatingSuggestionsProps<IPersonaProps>;
   private _selectedItemsListProps: ISelectedPeopleProps;
   private _focusZoneProps: IFocusZoneProps;
   private _suggestionProps: IBaseFloatingPickerSuggestionProps;
@@ -106,22 +107,12 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
     };
 
     this._floatingPickerProps = {
-      suggestionsStore: new SuggestionsStore<IPersonaProps>(),
-      onResolveSuggestions: this._onFilterChanged,
-      getTextFromItem: (persona: IPersonaProps) => persona.text || '',
-      pickerSuggestionsProps: this._suggestionProps,
-      key: 'normal',
       onRemoveSuggestion: this._onRemoveSuggestion,
-      onValidateInput: this._validateInput,
-      onZeroQuerySuggestion: this._returnMostRecentlyUsed,
-      showForceResolve: this._shouldShowForceResolve,
-      onInputChanged: this._onInputChanged,
-      onSuggestionsHidden: () => {
-        console.log('FLOATINGPICKER: hidden');
-      },
-      onSuggestionsShown: () => {
-        console.log('FLOATINGPICKER: shown');
-      }
+      onSuggestionSelected: () => {},
+      suggestionCalloutProps: undefined,
+      className: undefined,
+      calloutWidth: 4,
+      calloutProps: {}
     };
 
     this._selectedItemsListProps = {
@@ -170,7 +161,7 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
       <ExtendedPeoplePicker
         floatingPickerProps={this._floatingPickerProps}
         selectedItemsListProps={this._selectedItemsListProps}
-        onRenderFloatingPicker={FloatingPeoplePicker}
+        onRenderFloatingPicker={BaseFloatingSuggestions}
         onRenderSelectedItems={SelectedPeopleList}
         className={this._classNames.picker}
         key="normal"

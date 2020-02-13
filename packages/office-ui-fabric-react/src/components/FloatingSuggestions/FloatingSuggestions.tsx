@@ -9,29 +9,25 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
   const getClassNames = classNamesFunction<IBaseFloatingSuggestionsStylesProps, IBaseFloatingSuggestionsStyles>();
   const classNames = getClassNames(getStyles);
 
-  const [isSuggestionsVisible, setIsSuggestionsVisible] = React.useState(true);
-
   const hidePicker = (): void => {
-    setIsSuggestionsVisible(false);
+    alert('on dismiss called');
   };
 
   return (
     <div className={css('ms-BasePicker ms-BaseFloatingPicker', classNames.root, props.className ? props.className : '')}>
-      {isSuggestionsVisible ? (
-        <Callout
-          className={classNames.callout}
-          isBeakVisible={false}
-          gapSpace={5}
-          target={props.targetElement}
-          onDismiss={hidePicker}
-          directionalHint={DirectionalHint.bottomLeftEdge}
-          directionalHintForRTL={DirectionalHint.bottomRightEdge}
-          calloutWidth={props.calloutWidth ? props.calloutWidth : 0}
-          {...props.calloutProps}
-        >
-          {'Call out'}
-        </Callout>
-      ) : null}
+      <Callout
+        className={classNames.callout}
+        isBeakVisible={false}
+        gapSpace={5}
+        target={props.targetElement}
+        onDismiss={hidePicker}
+        directionalHint={DirectionalHint.bottomLeftEdge}
+        directionalHintForRTL={DirectionalHint.bottomRightEdge}
+        calloutWidth={props.calloutWidth ? props.calloutWidth : 0}
+        {...props.calloutProps}
+      >
+        <div>Coming soon..</div>
+      </Callout>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { IBaseFloatingPickerProps } from '../../FloatingPicker';
 import { IBaseSelectedItemsListProps } from '../../SelectedItemsList';
 import { IRefObject } from '../../Utilities';
 import { IFocusZoneProps } from '../../FocusZone';
+import { IBaseFloatingSuggestionsProps } from '../FloatingSuggestions';
 
 export interface IBaseExtendedPicker<T> {
   /** Forces the picker to resolve */
@@ -72,7 +73,7 @@ export interface IBaseExtendedPickerProps<T> {
   /**
    * Floating picker properties
    */
-  floatingPickerProps: IBaseFloatingPickerProps<T>;
+  floatingPickerProps: IBaseFloatingSuggestionsProps<T>;
 
   /**
    * Selected items list properties
