@@ -18,6 +18,19 @@ export const getStyles = (props: IBaseFloatingSuggestionsStylesProps): IBaseFloa
 
   return {
     root: [classNames.root, {}],
-    callout: [classNames.callout, {}]
+    callout: [
+      classNames.callout,
+      {
+        selectors: {
+          ['.ms-FloatingSuggestionsItem-itemButton']: {
+            padding: '0px',
+            border: 'none'
+          },
+          ['.ms-FloatingSuggestionsList']: {
+            minWidth: '300px'
+          }
+        }
+      }
+    ]
   };
 };
