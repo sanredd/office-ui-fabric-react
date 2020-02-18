@@ -1,19 +1,20 @@
 import * as React from 'react';
 
-import { IPersonaProps } from 'office-ui-fabric-react/lib/Persona';
+import { IPersonaProps, PersonaPresence } from 'office-ui-fabric-react/lib/Persona';
 import { ExtendedPeoplePicker } from 'office-ui-fabric-react/lib/ExtendedPicker';
 import { PrimaryButton } from 'office-ui-fabric-react/lib/Button';
-import {
-  SuggestionsStore,
-  FloatingPeoplePicker,
-  IBaseFloatingPickerProps,
-  IBaseFloatingPickerSuggestionProps
-} from 'office-ui-fabric-react/lib/FloatingPicker';
+// import {
+//   SuggestionsStore,
+//   FloatingPeoplePicker,
+//   IBaseFloatingPickerProps,
+//   IBaseFloatingPickerSuggestionProps
+// } from 'office-ui-fabric-react/lib/FloatingPicker';
 import { BaseFloatingSuggestions, IBaseFloatingSuggestionsProps } from 'office-ui-fabric-react/lib/components/FloatingSuggestions';
 import { ISelectedPeopleProps, SelectedPeopleList, IExtendedPersonaProps } from 'office-ui-fabric-react/lib/SelectedItemsList';
 import { IFocusZoneProps, FocusZoneTabbableElements } from 'office-ui-fabric-react/lib/FocusZone';
 import { mergeStyleSets, getTheme, IStyle, IProcessedStyleSet } from 'office-ui-fabric-react/lib/Styling';
-import { people, mru, groupOne, groupTwo } from '@uifabric/example-data';
+import { people, mru, groupOne, groupTwo, TestImages } from '@uifabric/example-data';
+import { IFloatingSuggestionItemProps } from '../../FloatingSuggestions/FloatingSuggestionsItem/FloatingSuggestionsItem.types';
 
 export interface IPeoplePickerExampleState {
   peopleList: IPersonaProps[];
@@ -33,7 +34,7 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
   private _floatingPickerProps: IBaseFloatingSuggestionsProps<IPersonaProps>;
   private _selectedItemsListProps: ISelectedPeopleProps;
   private _focusZoneProps: IFocusZoneProps;
-  private _suggestionProps: IBaseFloatingPickerSuggestionProps;
+  // private _suggestionProps: IBaseFloatingPickerSuggestionProps;
   private _classNames: IProcessedStyleSet<IClassNames>;
 
   constructor(props: {}) {
@@ -45,74 +46,111 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
       searchMoreAvailable: true
     };
 
-    this._suggestionProps = {
-      showRemoveButtons: true,
-      headerItemsProps: [
-        {
-          renderItem: () => {
-            const picker = this._picker.current;
-            return (
-              <div className={this._classNames.headerItem}>
-                Use this address: {picker && picker.inputElement ? picker.inputElement.value : ''}
-              </div>
-            );
-          },
-          shouldShow: () => {
-            const picker = this._picker.current;
-            return !!(picker && picker.inputElement) && picker.inputElement.value.indexOf('@') > -1;
-          },
-          onExecute: () => {
-            const picker = this._picker.current;
-            const floatingPicker = picker && picker.floatingPicker.current;
-            if (floatingPicker) {
-              floatingPicker.forceResolveSuggestion();
-            }
-          },
-          ariaLabel: 'Use the typed address'
-        },
-        {
-          renderItem: () => {
-            return <div className={this._classNames.headerItem}>Suggested Contacts</div>;
-          },
-          shouldShow: this._shouldShowSuggestedContacts
-        }
-      ],
-      footerItemsProps: [
-        {
-          renderItem: () => {
-            return <div className={this._classNames.footerItem}>No results</div>;
-          },
-          shouldShow: () => {
-            const picker = this._picker.current;
-            const floatingPicker = picker && picker.floatingPicker.current;
-            return !!floatingPicker && floatingPicker.suggestions.length === 0;
-          }
-        },
-        {
-          renderItem: () => {
-            return <div className={this._classNames.footerItem}>Search for more</div>;
-          },
-          onExecute: () => {
-            this.setState({ searchMoreAvailable: false });
-          },
-          shouldShow: () => {
-            return this.state.searchMoreAvailable && !this._shouldShowSuggestedContacts();
-          },
-          ariaLabel: 'Search more'
-        }
-      ],
-      shouldSelectFirstItem: () => {
-        return !this._shouldShowSuggestedContacts();
+    // this._suggestionProps = {
+    //   showRemoveButtons: true,
+    //   headerItemsProps: [
+    //     {
+    //       renderItem: () => {
+    //         const picker = this._picker.current;
+    //         return (
+    //           <div className={this._classNames.headerItem}>
+    //             Use this address: {picker && picker.inputElement ? picker.inputElement.value : ''}
+    //           </div>
+    //         );
+    //       },
+    //       shouldShow: () => {
+    //         const picker = this._picker.current;
+    //         return !!(picker && picker.inputElement) && picker.inputElement.value.indexOf('@') > -1;
+    //       },
+    //       onExecute: () => {
+    //         const picker = this._picker.current;
+    //         const floatingPicker = picker && picker.floatingPicker.current;
+    //         if (floatingPicker) {
+    //           floatingPicker.forceResolveSuggestion();
+    //         }
+    //       },
+    //       ariaLabel: 'Use the typed address'
+    //     },
+    //     {
+    //       renderItem: () => {
+    //         return <div className={this._classNames.headerItem}>Suggested Contacts</div>;
+    //       },
+    //       shouldShow: this._shouldShowSuggestedContacts
+    //     }
+    //   ],
+    //   footerItemsProps: [
+    //     {
+    //       renderItem: () => {
+    //         return <div className={this._classNames.footerItem}>No results</div>;
+    //       },
+    //       shouldShow: () => {
+    //         const picker = this._picker.current;
+    //         const floatingPicker = picker && picker.floatingPicker.current;
+    //         return !!floatingPicker && floatingPicker.suggestions.length === 0;
+    //       }
+    //     },
+    //     {
+    //       renderItem: () => {
+    //         return <div className={this._classNames.footerItem}>Search for more</div>;
+    //       },
+    //       onExecute: () => {
+    //         this.setState({ searchMoreAvailable: false });
+    //       },
+    //       shouldShow: () => {
+    //         return this.state.searchMoreAvailable && !this._shouldShowSuggestedContacts();
+    //       },
+    //       ariaLabel: 'Search more'
+    //     }
+    //   ],
+    //   shouldSelectFirstItem: () => {
+    //     return !this._shouldShowSuggestedContacts();
+    //   }
+    // };
+
+    const suggestionList: IFloatingSuggestionItemProps<IPersonaProps>[] = [
+      {
+        displayText: 'Suggestion 1',
+        item: mru[0],
+        isSelected: true
+      },
+      {
+        displayText: 'Suggestion 2',
+        item: mru[1],
+        isSelected: false
+      },
+      {
+        displayText: 'Suggestion 3',
+        item: mru[2],
+        isSelected: false
+      },
+      {
+        displayText: 'Suggestion 4',
+        item: mru[3],
+        isSelected: false
+      },
+      {
+        displayText: 'Suggestion 5',
+        item: mru[4],
+        isSelected: false
       }
-    };
+    ];
 
     this._floatingPickerProps = {
-      onRemoveSuggestion: this._onRemoveSuggestion,
-      onSuggestionSelected: () => {},
+      suggestions: suggestionList,
+      onRemoveSuggestion: () => {
+        console.log('onRemoveSuggestion call in example');
+      },
+      onSuggestionSelected: () => {
+        console.log('onSuggestionSelected call in example');
+      },
       suggestionCalloutProps: undefined,
       className: undefined,
       calloutWidth: 4,
-      calloutProps: {}
+      calloutProps: {},
+      isSuggestionsVisible: true,
+      noResultsFoundText: 'No suggestions found',
+      targetElement: null,
+      showSuggestionRemoveButton: true
     };
 
     this._selectedItemsListProps = {
@@ -122,7 +160,7 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
       copyMenuItemText: 'Copy name',
       editMenuItemText: 'Edit',
       getEditingItemText: this._getEditingItemText,
-      onRenderFloatingPicker: FloatingPeoplePicker,
+      onRenderFloatingPicker: BaseFloatingSuggestions,
       floatingPickerProps: this._floatingPickerProps
     };
 

@@ -10,10 +10,9 @@ import { getStyles } from './FloatingSuggestionsList.styles';
 
 const getClassNames = classNamesFunction<IFloatingSuggestionsListStyleProps, IFloatingSuggestionsListStyle>();
 
-export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestionsListProps<T>): JSX.Element | null => {
+export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestionsListProps<T>): JSX.Element => {
   const classNames = getClassNames(getStyles);
-  const { className, suggestionItems, onRenderNoResultFound, ariaLabel, onItemClick, noResultsFoundText } = props;
-
+  const { className, suggestionItems, onRenderNoResultFound, ariaLabel, onItemClick, noResultsFoundText, selectedSuggestionIndex } = props;
   const hasNoSuggestions = !suggestionItems || !suggestionItems.length;
 
   const noResults = () => {
@@ -52,18 +51,18 @@ export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestion
     } = props;
 
     return (
-      <div className={classNames.suggestionsContainer} role="listbox" aria-label={suggestionsContainerAriaLabel}>
-        {suggestionItems.map((suggestionItem, index) => {
+      <div className={classNames.suggestionsContainer} role="list" aria-label={suggestionsContainerAriaLabel}>
+        {suggestionItems.map((suggestionItem, index) => (
           <div
             key={suggestionItem.key ? suggestionItem.key : `FloatingSuggestionsItemKey-${index}`}
             id={suggestionItem.id ? suggestionItem.id : `FloatingSuggestionsItemId-${index}`}
-            role="option"
+            role="listitem"
             aria-label={suggestionItem.ariaLabel}
           >
             <FloatingSuggestionsItem<T>
               item={suggestionItem.item}
               onClick={onItemClick}
-              isSelected={false}
+              isSelected={index === selectedSuggestionIndex}
               onRemoveItem={onSuggestionRemove}
               onRenderSuggestion={onRenderItem}
               className={suggestionsItemClassName}
@@ -71,8 +70,8 @@ export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestion
               showRemoveButton={showSuggestionRemoveButton}
               displayText={suggestionItem.displayText}
             />
-          </div>;
-        })}
+          </div>
+        ))}
       </div>
     );
   };

@@ -1,15 +1,16 @@
 import { IBaseFloatingSuggestionsProps } from './FloatingSuggestions.types';
 import { Callout, DirectionalHint } from '../Callout';
-import React = require('react');
+import * as React from 'react';
 import { getStyles } from './FloatingSuggestions.styles';
 import { classNamesFunction, css } from '../../Utilities';
 import { IBaseFloatingSuggestionsStyles, IBaseFloatingSuggestionsStylesProps } from './FloatingSuggestions.types';
 import { FloatingSuggestionsList } from './FloatingSuggestionsList/FloatingSuggestionsList';
 
-export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSuggestionsProps<T>): JSX.Element | null => {
+export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSuggestionsProps<T>): JSX.Element => {
   const getClassNames = classNamesFunction<IBaseFloatingSuggestionsStylesProps, IBaseFloatingSuggestionsStyles>();
   const classNames = getClassNames(getStyles);
   const {
+    componentRef,
     suggestions,
     onSuggestionSelected,
     onRemoveSuggestion,
@@ -21,15 +22,16 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
     maximumSuggestionsToShow,
     showSuggestionRemoveButton,
     removeItemButtonAriaLabel,
-    suggestionsContainerAriaLabel
+    suggestionsContainerAriaLabel,
+    selectedSuggestionIndex
   } = props;
 
   const hidePicker = (): void => {
-    alert('on dismiss called');
+    console.log('on dismiss called');
   };
 
   return (
-    <div className={css('ms-BasePicker ms-BaseFloatingPicker', classNames.root, props.className ? props.className : '')}>
+    <div ref={componentRef} className={css('ms-BasePicker ms-BaseFloatingPicker', classNames.root, props.className ? props.className : '')}>
       {props.isSuggestionsVisible ? (
         <Callout
           className={classNames.callout}
@@ -39,10 +41,9 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
           onDismiss={hidePicker}
           directionalHint={DirectionalHint.bottomLeftEdge}
           directionalHintForRTL={DirectionalHint.bottomRightEdge}
-          calloutWidth={props.calloutWidth ? props.calloutWidth : 0}
           {...props.calloutProps}
         >
-          <FloatingSuggestionsList
+          <FloatingSuggestionsList<T>
             suggestionItems={suggestions}
             onItemClick={onSuggestionSelected}
             onSuggestionRemove={onRemoveSuggestion}
@@ -55,6 +56,7 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
             noResultsFoundText={noResultsFoundText}
             maximumSuggestionsToShow={maximumSuggestionsToShow}
             suggestionsContainerAriaLabel={suggestionsContainerAriaLabel}
+            selectedSuggestionIndex={selectedSuggestionIndex ? selectedSuggestionIndex : 0}
           />
         </Callout>
       ) : null}

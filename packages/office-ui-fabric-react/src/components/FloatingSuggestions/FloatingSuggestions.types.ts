@@ -4,9 +4,10 @@ import {
   IFloatingSuggestionItemProps,
   IFloatingSuggestionOnRenderItemProps
 } from './FloatingSuggestionsItem/FloatingSuggestionsItem.types';
-import { IRenderFunction } from '@uifabric/utilities';
+import { IRenderFunction, IRefObject } from '@uifabric/utilities';
 
 export interface IBaseFloatingSuggestionsProps<T> {
+  componentRef?: IRefObject<HTMLDivElement>;
   suggestions: IFloatingSuggestionItemProps<T>[];
   onRenderSuggestion?: (renderProps: IFloatingSuggestionOnRenderItemProps<T>) => JSX.Element;
   onRemoveSuggestion?: (ev: React.MouseEvent<HTMLElement>, item: any) => void;
@@ -15,7 +16,7 @@ export interface IBaseFloatingSuggestionsProps<T> {
   onRenderFooter?: (suggestionItems?: IFloatingSuggestionItemProps<T>[]) => JSX.Element;
   showSuggestionRemoveButton?: boolean;
   className?: string;
-  targetElement?: HTMLInputElement | null;
+  targetElement: HTMLInputElement | null;
   calloutWidth?: number;
   calloutProps?: ICalloutProps;
   isSuggestionsVisible?: boolean;
@@ -29,6 +30,7 @@ export interface IBaseFloatingSuggestionsProps<T> {
   suggestionsContainerAriaLabel?: string;
   suggestionListAriaLabel?: string;
   removeItemButtonAriaLabel?: string;
+  selectedSuggestionIndex?: number;
 }
 
 export interface IBaseFloatingSuggestionsStylesProps {}

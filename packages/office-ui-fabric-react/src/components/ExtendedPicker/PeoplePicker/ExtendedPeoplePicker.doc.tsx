@@ -17,12 +17,12 @@ export const ExtendedPeoplePickerPageProps: IDocPageProps = {
       title: 'Extended People Picker (uncontrolled)',
       code: ExtendedPeoplePickerBasicExampleCode,
       view: <ExtendedPeoplePickerBasicExample />
-    },
-    {
-      title: 'Extended People Picker (controlled)',
-      code: ExtendedPeoplePickerControlledExampleCode,
-      view: <ExtendedPeoplePickerControlledExample />
     }
+    // {
+    //   title: 'Extended People Picker (controlled)',
+    //   code: ExtendedPeoplePickerControlledExampleCode,
+    //   view: <ExtendedPeoplePickerControlledExample />
+    // }
   ],
   overview: require('!raw-loader!office-ui-fabric-react/src/components/ExtendedPicker/docs/ExtendedPeoplePickerOverview.md') as string,
   bestPractices: require('!raw-loader!office-ui-fabric-react/src/components/ExtendedPicker/docs/ExtendedPeoplePickerBestPractices.md') as string,

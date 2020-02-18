@@ -9,7 +9,7 @@ import { classNamesFunction, css } from '../../../Utilities';
 import { getStyles } from './FloatingSuggestionsItem.styles';
 import { CommandButton, IconButton } from '../../Button';
 
-export const FloatingSuggestionsItem = <T extends {}>(props: IFloatingSuggestionItemProps<T>): JSX.Element | null => {
+export const FloatingSuggestionsItem = <T extends {}>(props: IFloatingSuggestionItemProps<T>): JSX.Element => {
   const getClassNames = classNamesFunction<IFloatingSuggestionItemStylesProps, IFloatingSuggestionItemStyles>();
   const classNames = getClassNames(getStyles);
   const { onClick, className, onRemoveItem, onRenderSuggestion, showRemoveButton, removeButtonAriaLabel } = props;

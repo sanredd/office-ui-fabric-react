@@ -42,7 +42,7 @@ export interface ISelectedPeopleProps extends IBaseSelectedItemsListProps<IExten
   copyMenuItemText?: string;
   editMenuItemText?: string;
   getEditingItemText?: (item: IExtendedPersonaProps) => string;
-  onRenderFloatingPicker?: React.ComponentType<IBaseFloatingPickerProps<IPersonaProps>>;
+  onRenderFloatingPicker?: (props: IBaseFloatingSuggestionsProps<IExtendedPersonaProps>) => JSX.Element;
   floatingPickerProps?: IBaseFloatingSuggestionsProps<IPersonaProps>;
 }
 
@@ -84,35 +84,35 @@ export class SelectedPeopleList extends BasePeopleSelectedItemsList {
     };
 
     const hasContextMenu = props.menuItems.length > 0;
-    if ((item as IExtendedPersonaProps).isEditing && hasContextMenu) {
-      return (
-        <EditingItem
-          {...props}
-          onRenderFloatingPicker={this.props.onRenderFloatingPicker}
-          // floatingPickerProps={this.props.floatingPickerProps}
-          onEditingComplete={this._completeEditing}
-          getEditingItemText={this.props.getEditingItemText}
-        />
-      );
-    } else {
-      // This cast is here because we are guaranteed that onRenderItem is set
-      // from static defaultProps
-      // TODO: Move this component to composition with required onRenderItem to remove
-      // this cast.
-      const onRenderItem = this.props.onRenderItem as (props: ISelectedPeopleItemProps) => JSX.Element;
-      const renderedItem = onRenderItem(props);
-      return hasContextMenu ? (
-        <SelectedItemWithContextMenu
-          key={props.key}
-          renderedItem={renderedItem}
-          beginEditing={this._beginEditing}
-          menuItems={this._createMenuItems(props.item)}
-          item={props.item}
-        />
-      ) : (
-        renderedItem
-      );
-    }
+    // if ((item as IExtendedPersonaProps).isEditing && hasContextMenu) {
+    //   return (
+    //     <EditingItem
+    //       {...props}
+    //       onRenderFloatingPicker={this.props.onRenderFloatingPicker}
+    //       // floatingPickerProps={this.props.floatingPickerProps}
+    //       onEditingComplete={this._completeEditing}
+    //       getEditingItemText={this.props.getEditingItemText}
+    //     />
+    //   );
+    // } else {
+    // This cast is here because we are guaranteed that onRenderItem is set
+    // from static defaultProps
+    // TODO: Move this component to composition with required onRenderItem to remove
+    // this cast.
+    const onRenderItem = this.props.onRenderItem as (props: ISelectedPeopleItemProps) => JSX.Element;
+    const renderedItem = onRenderItem(props);
+    return hasContextMenu ? (
+      <SelectedItemWithContextMenu
+        key={props.key}
+        renderedItem={renderedItem}
+        beginEditing={this._beginEditing}
+        menuItems={this._createMenuItems(props.item)}
+        item={props.item}
+      />
+    ) : (
+      renderedItem
+    );
+    // }
   }
 
   private _beginEditing = (item: IExtendedPersonaProps): void => {

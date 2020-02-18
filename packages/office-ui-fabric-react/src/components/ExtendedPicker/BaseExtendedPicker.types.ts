@@ -6,6 +6,7 @@ import { IBaseSelectedItemsListProps } from '../../SelectedItemsList';
 import { IRefObject } from '../../Utilities';
 import { IFocusZoneProps } from '../../FocusZone';
 import { IBaseFloatingSuggestionsProps } from '../FloatingSuggestions';
+import { IFloatingSuggestionItemProps } from '../FloatingSuggestions/FloatingSuggestionsItem/FloatingSuggestionsItem.types';
 
 export interface IBaseExtendedPicker<T> {
   /** Forces the picker to resolve */
@@ -63,7 +64,7 @@ export interface IBaseExtendedPickerProps<T> {
   /**
    * Function that specifies how the floating picker will appear.
    */
-  onRenderFloatingPicker: React.ComponentType<IBaseFloatingPickerProps<T>>;
+  onRenderFloatingPicker: (props: IBaseFloatingSuggestionsProps<T>) => JSX.Element;
 
   /**
    * Function that specifies how the floating picker will appear.

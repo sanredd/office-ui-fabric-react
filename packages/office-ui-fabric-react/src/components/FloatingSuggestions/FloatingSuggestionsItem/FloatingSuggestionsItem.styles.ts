@@ -14,15 +14,8 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
     throw new Error('theme is undefined or null in Editing item getStyles function.');
   }
 
-  const { palette } = theme;
-  const { neutralLighter, neutralDark, neutralTertiaryAlt } = palette;
-  const colors = {
-    // default hover
-    defaultHoverBackground: neutralLighter,
-    // selected
-    defaultHeaderText: neutralDark,
-    defaultNeutralTertiaryAlt: neutralTertiaryAlt
-  };
+  const { palette, semanticColors } = theme;
+  const { neutralDark, neutralTertiaryAlt, neutralSecondary } = palette;
   const classNames = getGlobalClassNames(GlobalClassNames, theme);
 
   return {
@@ -37,10 +30,10 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
         overflow: 'hidden',
         selectors: {
           '&:hover': {
-            background: colors.defaultHoverBackground,
-            [`.${classNames.closeButton}`]: {
-              display: 'block'
-            }
+            background: semanticColors.menuItemBackgroundHovered
+          },
+          '&:hover .ms-FloatingSuggestionsItem-closeButton': {
+            display: 'block'
           }
         }
       }
@@ -57,7 +50,7 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
             color: 'WindowText'
           },
           '&:hover': {
-            color: colors.defaultHeaderText
+            color: semanticColors.menuItemTextHovered
           }
         }
       }
@@ -65,16 +58,18 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
     closeButton: [
       classNames.closeButton,
       {
+        display: 'none',
+        color: neutralSecondary,
         padding: '0 4px',
         height: 'auto',
-        width: '32px',
+        width: 32,
         selectors: {
+          ':hover, :active': {
+            background: neutralTertiaryAlt,
+            color: neutralDark
+          },
           [HighContrastSelector]: {
             color: 'WindowText'
-          },
-          '&:hover': {
-            background: colors.defaultHeaderText,
-            color: colors.defaultNeutralTertiaryAlt
           }
         }
       }

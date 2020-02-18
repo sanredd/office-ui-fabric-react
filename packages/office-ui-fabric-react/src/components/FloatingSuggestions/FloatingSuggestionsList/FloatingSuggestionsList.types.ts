@@ -23,6 +23,7 @@ export interface IFloatingSuggestionsListProps<T> {
   onRenderHeader?: (suggestionItems?: IFloatingSuggestionItemProps<T>[], suggestionsHeaderText?: string) => JSX.Element;
   onRenderFooter?: (suggestionItems?: IFloatingSuggestionItemProps<T>[]) => JSX.Element;
   suggestionsContainerAriaLabel?: string;
+  selectedSuggestionIndex?: number;
 }
 
 export interface IFloatingSuggestionsListStyleProps {}

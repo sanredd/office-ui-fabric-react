@@ -9,6 +9,12 @@ import { BaseSelectedItemsList, IBaseSelectedItemsListProps } from '../../Select
 import { FocusZone, FocusZoneDirection } from '../../FocusZone';
 import { Selection, SelectionMode, SelectionZone } from '../../Selection';
 import { IBaseFloatingSuggestionsProps } from '../FloatingSuggestions';
+import { FloatingPeoplePicker } from '../FloatingPicker';
+import { SuggestionItemNormal } from '../FloatingPicker/PeoplePicker/PeoplePickerItems/SuggestionItemDefault';
+import {
+  IFloatingSuggestionItemProps,
+  IFloatingSuggestionOnRenderItemProps
+} from '../FloatingSuggestions/FloatingSuggestionsItem/FloatingSuggestionsItem.types';
 // tslint:disable-next-line:no-any
 const styles: any = stylesImport;
 
@@ -20,7 +26,7 @@ export interface IBaseExtendedPickerState<T> {
 
 export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extends BaseComponent<P, IBaseExtendedPickerState<T>>
   implements IBaseExtendedPicker<T> {
-  public floatingPicker = React.createRef<BaseFloatingPicker<T, IBaseFloatingPickerProps<T>>>();
+  public floatingPicker = React.createRef<any>();
   public selectedItemsList = React.createRef<BaseSelectedItemsList<T, IBaseSelectedItemsListProps<T>>>();
 
   protected root = React.createRef<HTMLDivElement>();
@@ -96,6 +102,10 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
     return this.selectedItemsList.current ? this.selectedItemsList.current.highlightedItems() : [];
   }
 
+  public renderSuggestionItem(props: IFloatingSuggestionOnRenderItemProps<T>): JSX.Element {
+    return SuggestionItemNormal({ ...props.item });
+  }
+
   public render(): JSX.Element {
     const { className, inputProps, disabled, focusZoneProps } = this.props;
     const activeDescendant =
@@ -153,7 +163,11 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
   protected renderFloatingPicker(): JSX.Element {
     const FloatingPicker: React.ComponentType<IBaseFloatingSuggestionsProps<T>> = this.props.onRenderFloatingPicker;
     return (
-      <FloatingPicker targetElement={this.input.current ? this.input.current.inputElement : undefined} {...this.floatingPickerProps} />
+      <FloatingPicker
+        {...this.floatingPickerProps}
+        targetElement={this.input.current ? this.input.current.inputElement : null}
+        onRenderSuggestion={this.renderSuggestionItem}
+      />
     );
   }
 
