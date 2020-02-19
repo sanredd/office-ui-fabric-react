@@ -5,7 +5,7 @@ import {
   IFloatingSuggestionsListStyle,
   IFloatingSuggestionsListProps
 } from './FloatingSuggestionsList.types';
-import { FloatingSuggestionsItem, FloatingSuggestionsItemMemo } from '../FloatingSuggestionsItem/FloatingSuggestionsItem';
+import { FloatingSuggestionsItemMemo } from '../FloatingSuggestionsItem/FloatingSuggestionsItem';
 import { getStyles } from './FloatingSuggestionsList.styles';
 
 const getClassNames = classNamesFunction<IFloatingSuggestionsListStyleProps, IFloatingSuggestionsListStyle>();

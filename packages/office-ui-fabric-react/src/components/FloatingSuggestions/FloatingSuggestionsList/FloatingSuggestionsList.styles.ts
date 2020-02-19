@@ -16,14 +16,7 @@ export const getStyles = (props: IFloatingSuggestionsListStyleProps): IFloatingS
   }
 
   const { palette, fonts } = theme;
-  const { themePrimary, neutralLight, neutralLighter, neutralDark, neutralTertiaryAlt } = palette;
-  const colors = {
-    defaultHoverBackground: neutralLighter,
-    defaultNeutralLight: neutralLight,
-    defaultHeaderText: neutralDark,
-    defaultNeutralTertiaryAlt: neutralTertiaryAlt,
-    defaultThemePrimary: themePrimary
-  };
+  const { themePrimary, neutralLight, neutralPrimaryAlt } = palette;
   const classNames = getGlobalClassNames(GlobalClassNames, theme);
 
   return {
@@ -39,24 +32,24 @@ export const getStyles = (props: IFloatingSuggestionsListStyleProps): IFloatingS
         overflowX: 'auto',
         overflowY: 'hidden',
         maxHeight: '300px',
-        borderBottom: `1px solid ${colors.defaultNeutralLight}`
+        borderBottom: `1px solid ${neutralLight}`
       }
     ],
     title: [
       classNames.title,
       {
         padding: '0 12px',
-        color: colors.defaultThemePrimary,
+        color: themePrimary,
         fontSize: fonts.small.fontSize,
         lineHeight: '40px',
-        borderBottom: `1px solid ${colors.defaultNeutralLight}`
+        borderBottom: `1px solid ${neutralLight}`
       }
     ],
     noSuggestions: [
       classNames.noSuggestions,
       {
         textAlign: 'center',
-        color: palette.neutralPrimaryAlt,
+        color: neutralPrimaryAlt,
         fontSize: fonts.small.fontSize,
         lineHeight: '30px'
       }

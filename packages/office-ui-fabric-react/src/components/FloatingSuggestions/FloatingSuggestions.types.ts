@@ -9,6 +9,7 @@ import { IRenderFunction, IRefObject } from '@uifabric/utilities';
 export interface IBaseFloatingSuggestionsProps<T> {
   componentRef?: IRefObject<HTMLDivElement>;
   suggestions: IFloatingSuggestionItemProps<T>[];
+  isSuggestionsVisible: boolean;
   onRenderSuggestion?: (renderProps: IFloatingSuggestionOnRenderItemProps<T>) => JSX.Element;
   onRemoveSuggestion?: (ev: React.MouseEvent<HTMLElement>, item: any) => void;
   onSuggestionSelected?: (ev: React.MouseEvent<HTMLElement>, item: any) => void;
@@ -20,11 +21,9 @@ export interface IBaseFloatingSuggestionsProps<T> {
   targetElement: HTMLInputElement | null;
   calloutWidth?: number;
   calloutProps?: ICalloutProps;
-  isSuggestionsVisible?: boolean;
   suggestionListClassName?: string;
   suggestionsItemClassName?: string;
   suggestionsHeaderText?: string;
-  suggestionCalloutProps?: ICalloutProps;
   onRenderNoResultFound?: IRenderFunction<void>;
   noResultsFoundText?: string;
   maximumSuggestionsToShow?: number;

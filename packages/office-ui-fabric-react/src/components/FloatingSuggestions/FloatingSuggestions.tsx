@@ -12,6 +12,7 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
   const {
     componentRef,
     suggestions,
+    isSuggestionsVisible,
     onSuggestionSelected,
     onRemoveSuggestion,
     onRenderSuggestion,
@@ -34,7 +35,7 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
 
   return (
     <div ref={componentRef} className={css('ms-BasePicker ms-BaseFloatingPicker', classNames.root, props.className ? props.className : '')}>
-      {props.isSuggestionsVisible ? (
+      {isSuggestionsVisible ? (
         <Callout
           className={classNames.callout}
           isBeakVisible={false}
