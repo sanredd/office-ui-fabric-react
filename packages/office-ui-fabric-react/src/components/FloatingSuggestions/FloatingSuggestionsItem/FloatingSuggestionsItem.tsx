@@ -10,9 +10,9 @@ import { getStyles } from './FloatingSuggestionsItem.styles';
 import { CommandButton, IconButton } from '../../Button';
 
 export const FloatingSuggestionsItem = <T extends {}>(props: IFloatingSuggestionItemProps<T>): JSX.Element => {
+  const { onClick, className, onRemoveItem, onRenderSuggestion, showRemoveButton, removeButtonAriaLabel, isSelected } = props;
   const getClassNames = classNamesFunction<IFloatingSuggestionItemStylesProps, IFloatingSuggestionItemStyles>();
-  const classNames = getClassNames(getStyles);
-  const { onClick, className, onRemoveItem, onRenderSuggestion, showRemoveButton, removeButtonAriaLabel } = props;
+  const classNames = getClassNames(getStyles, { isSelected: isSelected });
 
   const onClickItem = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     onClick ? onClick(ev, props.item) : null;

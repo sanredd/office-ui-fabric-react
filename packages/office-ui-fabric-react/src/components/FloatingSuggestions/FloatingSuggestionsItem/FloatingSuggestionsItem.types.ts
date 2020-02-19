@@ -20,7 +20,9 @@ export type IFloatingSuggestionOnClickItemProps<T> = Pick<IFloatingSuggestionIte
 
 export type IFloatingSuggestionOnRenderItemProps<T> = Omit<IFloatingSuggestionItemProps<T>, 'onRenderSuggestion'>;
 
-export interface IFloatingSuggestionItemStylesProps {}
+export interface IFloatingSuggestionItemStylesProps {
+  isSelected?: boolean;
+}
 
 export interface IFloatingSuggestionItemStyles {
   root: IStyle;

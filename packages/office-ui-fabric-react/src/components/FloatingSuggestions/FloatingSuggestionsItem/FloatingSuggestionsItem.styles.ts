@@ -4,16 +4,18 @@ import { IFloatingSuggestionItemStylesProps, IFloatingSuggestionItemStyles } fro
 const GlobalClassNames = {
   root: 'ms-FloatingSuggestionsItem',
   itemButton: 'ms-FloatingSuggestionsItem-itemButton',
-  closeButton: 'ms-FloatingSuggestionsItem-closeButton'
+  closeButton: 'ms-FloatingSuggestionsItem-closeButton',
+  isSelected: 'ms-FloatingSuggestionsItem-isSelected'
 };
 
 export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingSuggestionItemStyles => {
   const theme = getTheme();
 
   if (!theme) {
-    throw new Error('theme is undefined or null in Editing item getStyles function.');
+    throw new Error('theme is undefined or null in FloatingSuggestionsItem getStyles function.');
   }
 
+  const { isSelected } = props;
   const { palette, semanticColors } = theme;
   const { neutralDark, neutralTertiaryAlt, neutralSecondary } = palette;
   const classNames = getGlobalClassNames(GlobalClassNames, theme);
@@ -53,7 +55,23 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
             color: semanticColors.menuItemTextHovered
           }
         }
-      }
+      },
+      isSelected && [
+        classNames.isSelected,
+        {
+          background: semanticColors.menuItemBackgroundPressed,
+          selectors: {
+            ':hover': {
+              background: semanticColors.menuDivider
+            },
+            [HighContrastSelector]: {
+              background: 'Highlight',
+              color: 'HighlightText',
+              MsHighContrastAdjust: 'none'
+            }
+          }
+        }
+      ]
     ],
     closeButton: [
       classNames.closeButton,
