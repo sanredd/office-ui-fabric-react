@@ -14,6 +14,7 @@ export interface IBaseFloatingSuggestionsProps<T> {
   onSuggestionSelected?: (ev: React.MouseEvent<HTMLElement>, item: any) => void;
   onRenderHeader?: (suggestionItems?: IFloatingSuggestionItemProps<T>[], suggestionsHeaderText?: string) => JSX.Element;
   onRenderFooter?: (suggestionItems?: IFloatingSuggestionItemProps<T>[]) => JSX.Element;
+  onFloatingSuggestionsDismiss?: (ev?: React.MouseEvent) => void;
   showSuggestionRemoveButton?: boolean;
   className?: string;
   targetElement: HTMLInputElement | null;

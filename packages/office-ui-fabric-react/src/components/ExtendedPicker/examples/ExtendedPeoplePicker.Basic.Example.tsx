@@ -20,6 +20,7 @@ export interface IPeoplePickerExampleState {
   peopleList: IPersonaProps[];
   mostRecentlyUsed: IPersonaProps[];
   searchMoreAvailable: boolean;
+  isSuggestionsVisible: boolean;
 }
 
 interface IClassNames {
@@ -34,6 +35,7 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
   private _floatingPickerProps: IBaseFloatingSuggestionsProps<IPersonaProps>;
   private _selectedItemsListProps: ISelectedPeopleProps;
   private _focusZoneProps: IFocusZoneProps;
+  private _suggestionList: IFloatingSuggestionItemProps<IPersonaProps>[];
   // private _suggestionProps: IBaseFloatingPickerSuggestionProps;
   private _classNames: IProcessedStyleSet<IClassNames>;
 
@@ -43,7 +45,8 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
     this.state = {
       peopleList: people,
       mostRecentlyUsed: mru,
-      searchMoreAvailable: true
+      searchMoreAvailable: true,
+      isSuggestionsVisible: true
     };
 
     // this._suggestionProps = {
@@ -107,7 +110,7 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
     //   }
     // };
 
-    const suggestionList: IFloatingSuggestionItemProps<IPersonaProps>[] = [
+    this._suggestionList = [
       {
         displayText: 'Suggestion 1',
         item: mru[0],
@@ -133,10 +136,10 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
         item: mru[4],
         isSelected: false
       }
-    ];
+    ] as IFloatingSuggestionItemProps<IPersonaProps>[];
 
     this._floatingPickerProps = {
-      suggestions: suggestionList,
+      suggestions: this._suggestionList,
       onRemoveSuggestion: () => {
         console.log('onRemoveSuggestion call in example');
       },
@@ -147,10 +150,12 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
       className: undefined,
       calloutWidth: 4,
       calloutProps: {},
-      isSuggestionsVisible: true,
+      isSuggestionsVisible: this.state.isSuggestionsVisible,
       noResultsFoundText: 'No suggestions found',
       targetElement: null,
-      showSuggestionRemoveButton: true
+      showSuggestionRemoveButton: true,
+      suggestionsHeaderText: 'People suggestions',
+      onFloatingSuggestionsDismiss: this._hideSuggestions
     };
 
     this._selectedItemsListProps = {
@@ -194,10 +199,36 @@ export class ExtendedPeoplePickerBasicExample extends React.Component<{}, IPeopl
     );
   }
 
+  private _hideSuggestions = (): void => {
+    this.setState({ isSuggestionsVisible: false });
+  };
+
+  private getFloatingPickerProps = () => {
+    return {
+      suggestions: this._suggestionList,
+      onRemoveSuggestion: () => {
+        console.log('onRemoveSuggestion call in example');
+      },
+      onSuggestionSelected: () => {
+        console.log('onSuggestionSelected call in example');
+      },
+      suggestionCalloutProps: undefined,
+      className: undefined,
+      calloutWidth: 4,
+      calloutProps: {},
+      isSuggestionsVisible: this.state.isSuggestionsVisible,
+      noResultsFoundText: 'No suggestions found',
+      targetElement: null,
+      showSuggestionRemoveButton: true,
+      suggestionsHeaderText: 'People suggestions',
+      onFloatingSuggestionsDismiss: this._hideSuggestions
+    };
+  };
+
   private _renderExtendedPicker(): JSX.Element {
     return (
       <ExtendedPeoplePicker
-        floatingPickerProps={this._floatingPickerProps}
+        floatingPickerProps={this.getFloatingPickerProps()}
         selectedItemsListProps={this._selectedItemsListProps}
         onRenderFloatingPicker={BaseFloatingSuggestions}
         onRenderSelectedItems={SelectedPeopleList}

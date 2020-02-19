@@ -22,6 +22,7 @@ export interface IBaseExtendedPickerState<T> {
   queryString: string | null;
   selectedItems: T[] | null;
   suggestionItems: T[] | null;
+  isSuggestionsVisible: boolean;
 }
 
 export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extends BaseComponent<P, IBaseExtendedPickerState<T>>
@@ -43,6 +44,7 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
     this.state = {
       queryString: '',
       suggestionItems: this.props.suggestionItems ? (this.props.suggestionItems as T[]) : null,
+      isSuggestionsVisible: false,
       selectedItems: this.props.defaultSelectedItems
         ? (this.props.defaultSelectedItems as T[])
         : this.props.selectedItems
@@ -80,6 +82,10 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
     if (newProps.selectedItems) {
       this.setState({ selectedItems: newProps.selectedItems });
     }
+
+    // if (newProps.floatingPickerProps.isSuggestionsVisible) {
+    //   this.setState({ isSuggestionsVisible: newProps.floatingPickerProps.isSuggestionsVisible });
+    // }
   }
 
   public focus(): void {
@@ -160,13 +166,19 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
     return itemLimit === undefined || this.items.length < itemLimit;
   }
 
+  protected hideFloatingSuggestions = (): void => {
+    this.setState({ isSuggestionsVisible: false });
+  };
+
   protected renderFloatingPicker(): JSX.Element {
     const FloatingPicker: React.ComponentType<IBaseFloatingSuggestionsProps<T>> = this.props.onRenderFloatingPicker;
     return (
       <FloatingPicker
         {...this.floatingPickerProps}
+        isSuggestionsVisible={this.state.isSuggestionsVisible}
         targetElement={this.input.current ? this.input.current.inputElement : null}
         onRenderSuggestion={this.renderSuggestionItem}
+        onFloatingSuggestionsDismiss={this.hideFloatingSuggestions}
       />
     );
   }
@@ -187,7 +199,7 @@ export class BaseExtendedPicker<T, P extends IBaseExtendedPickerProps<T>> extend
   protected onInputChange = (value: string, composing?: boolean): void => {
     // We don't want to update the picker's suggestions when the input is still being composed
     if (!composing) {
-      this.setState({ queryString: value });
+      this.setState({ queryString: value, isSuggestionsVisible: true });
       if (this.floatingPicker.current) {
         this.floatingPicker.current.onQueryStringChanged(value);
       }

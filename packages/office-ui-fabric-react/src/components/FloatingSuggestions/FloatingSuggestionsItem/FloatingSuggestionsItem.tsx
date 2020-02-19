@@ -27,7 +27,11 @@ export const FloatingSuggestionsItem = <T extends {}>(props: IFloatingSuggestion
   return (
     <div className={css(classNames.root, className ? className : '')}>
       <CommandButton onClick={onClickItem} className={classNames.itemButton}>
-        {onRenderSuggestion ? onRenderSuggestion(props as IFloatingSuggestionOnRenderItemProps<T>) : <div>{props.displayText}</div>}
+        {onRenderSuggestion ? (
+          onRenderSuggestion(props as IFloatingSuggestionOnRenderItemProps<T>)
+        ) : (
+          <div className={classNames.displayText}>{props.displayText}</div>
+        )}
       </CommandButton>
       {showRemoveButton ? (
         <IconButton
@@ -41,3 +45,15 @@ export const FloatingSuggestionsItem = <T extends {}>(props: IFloatingSuggestion
     </div>
   );
 };
+
+export const FloatingSuggestionsItemMemo = React.memo<IFloatingSuggestionItemProps<any>>(FloatingSuggestionsItem, (prevProps, nextProp) => {
+  if (
+    prevProps.item !== nextProp.item ||
+    prevProps.id !== nextProp.id ||
+    prevProps.key !== nextProp.key ||
+    prevProps.displayText !== nextProp.displayText
+  ) {
+    return false;
+  }
+  return true;
+});

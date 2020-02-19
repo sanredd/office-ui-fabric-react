@@ -27,7 +27,7 @@ export const getStyles = (props: IBaseFloatingSuggestionsStylesProps): IBaseFloa
             border: 'none'
           },
           ['.ms-FloatingSuggestionsList']: {
-            minWidth: '300px'
+            minWidth: '260px'
           }
         }
       }

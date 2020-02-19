@@ -5,7 +5,7 @@ import {
   IFloatingSuggestionsListStyle,
   IFloatingSuggestionsListProps
 } from './FloatingSuggestionsList.types';
-import { FloatingSuggestionsItem } from '../FloatingSuggestionsItem/FloatingSuggestionsItem';
+import { FloatingSuggestionsItem, FloatingSuggestionsItemMemo } from '../FloatingSuggestionsItem/FloatingSuggestionsItem';
 import { getStyles } from './FloatingSuggestionsList.styles';
 
 const getClassNames = classNamesFunction<IFloatingSuggestionsListStyleProps, IFloatingSuggestionsListStyle>();
@@ -59,7 +59,7 @@ export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestion
             role="listitem"
             aria-label={suggestionItem.ariaLabel}
           >
-            <FloatingSuggestionsItem<T>
+            <FloatingSuggestionsItemMemo
               item={suggestionItem.item}
               onClick={onItemClick}
               isSelected={index === selectedSuggestionIndex}

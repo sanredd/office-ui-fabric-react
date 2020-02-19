@@ -28,4 +28,5 @@ export interface IFloatingSuggestionItemStyles {
   root: IStyle;
   itemButton: IStyle;
   closeButton: IStyle;
+  displayText: IStyle;
 }

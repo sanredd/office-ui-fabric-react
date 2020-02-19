@@ -5,7 +5,8 @@ const GlobalClassNames = {
   root: 'ms-FloatingSuggestionsItem',
   itemButton: 'ms-FloatingSuggestionsItem-itemButton',
   closeButton: 'ms-FloatingSuggestionsItem-closeButton',
-  isSelected: 'ms-FloatingSuggestionsItem-isSelected'
+  isSelected: 'ms-FloatingSuggestionsItem-isSelected',
+  displayText: 'ms-FloatingSuggestionsItem-displayText'
 };
 
 export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingSuggestionItemStyles => {
@@ -16,7 +17,7 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
   }
 
   const { isSelected } = props;
-  const { palette, semanticColors } = theme;
+  const { palette, semanticColors, fonts } = theme;
   const { neutralDark, neutralTertiaryAlt, neutralSecondary } = palette;
   const classNames = getGlobalClassNames(GlobalClassNames, theme);
 
@@ -90,6 +91,14 @@ export const getStyles = (props: IFloatingSuggestionItemStylesProps): IFloatingS
             color: 'WindowText'
           }
         }
+      }
+    ],
+    displayText: [
+      classNames.displayText,
+      {
+        padding: '0 12px',
+        fontSize: fonts.medium.fontSize,
+        lineHeight: '40px'
       }
     ]
   };

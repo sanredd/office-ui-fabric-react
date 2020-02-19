@@ -23,11 +23,13 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
     showSuggestionRemoveButton,
     removeItemButtonAriaLabel,
     suggestionsContainerAriaLabel,
-    selectedSuggestionIndex
+    selectedSuggestionIndex,
+    suggestionsHeaderText,
+    onFloatingSuggestionsDismiss
   } = props;
 
-  const hidePicker = (): void => {
-    console.log('on dismiss called');
+  const hidePicker = (ev: React.MouseEvent): void => {
+    onFloatingSuggestionsDismiss ? onFloatingSuggestionsDismiss(ev) : null;
   };
 
   return (
@@ -57,6 +59,7 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
             maximumSuggestionsToShow={maximumSuggestionsToShow}
             suggestionsContainerAriaLabel={suggestionsContainerAriaLabel}
             selectedSuggestionIndex={selectedSuggestionIndex ? selectedSuggestionIndex : 0}
+            suggestionsHeaderText={suggestionsHeaderText}
           />
         </Callout>
       ) : null}
