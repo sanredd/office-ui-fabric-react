@@ -26,7 +26,9 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
     suggestionsContainerAriaLabel,
     selectedSuggestionIndex,
     suggestionsHeaderText,
-    onFloatingSuggestionsDismiss
+    onFloatingSuggestionsDismiss,
+    targetElement,
+    calloutProps
   } = props;
 
   const hidePicker = (ev: React.MouseEvent): void => {
@@ -40,11 +42,11 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
           className={classNames.callout}
           isBeakVisible={false}
           gapSpace={5}
-          target={props.targetElement}
+          target={targetElement}
           onDismiss={hidePicker}
           directionalHint={DirectionalHint.bottomLeftEdge}
           directionalHintForRTL={DirectionalHint.bottomRightEdge}
-          {...props.calloutProps}
+          {...calloutProps}
         >
           <FloatingSuggestionsList<T>
             suggestionItems={suggestions}
