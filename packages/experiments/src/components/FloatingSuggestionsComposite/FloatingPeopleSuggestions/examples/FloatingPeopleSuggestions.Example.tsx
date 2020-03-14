@@ -1,5 +1,9 @@
 import * as React from 'react';
-import { IFloatingSuggestionItemProps, FloatingPeopleSuggestions } from '@uifabric/experiments/lib/FloatingPeopleSuggestionsComposite';
+import {
+  IFloatingSuggestionItemProps,
+  FloatingPeopleSuggestions,
+  IFloatingSuggestionItem
+} from '@uifabric/experiments/lib/FloatingPeopleSuggestionsComposite';
 import { IPersonaProps } from 'office-ui-fabric-react/lib/Persona';
 import { mru } from '@uifabric/example-data';
 
@@ -44,7 +48,7 @@ const _suggestions = [
     isSelected: false,
     showRemoveButton: true
   }
-] as IFloatingSuggestionItemProps<IPersonaProps>[];
+] as IFloatingSuggestionItem<IPersonaProps>[];
 
 export const FloatingPeopleSuggestionsExample = (): JSX.Element => {
   React.useEffect(() => {
