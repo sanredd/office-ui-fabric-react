@@ -12,7 +12,7 @@ const getClassNames = classNamesFunction<IFloatingSuggestionsListStyleProps, IFl
 
 export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestionsListProps<T>): JSX.Element => {
   const classNames = getClassNames(getStyles);
-  const { className, suggestionItems, onRenderNoResultFound, ariaLabel, onItemClick, noResultsFoundText } = props;
+  const { className, suggestionItems, onRenderNoResultFound, ariaLabel, noResultsFoundText } = props;
   const hasNoSuggestions = !suggestionItems || !suggestionItems.length;
 
   const noResults = () => {
@@ -47,7 +47,8 @@ export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestion
       removeItemAriaLabel,
       showSuggestionRemoveButton,
       suggestionsContainerAriaLabel,
-      onSuggestionRemove
+      onSuggestionRemove,
+      onItemClick
     } = props;
 
     return (
@@ -79,7 +80,7 @@ export const FloatingSuggestionsList = <T extends {}>(props: IFloatingSuggestion
   };
 
   return (
-    <div className={css(classNames.root, className ? className : '')} ari-label={ariaLabel}>
+    <div className={css(classNames.root, className ? className : '')} aria-label={ariaLabel}>
       {renderHeader()}
       {hasNoSuggestions ? (onRenderNoResultFound ? onRenderNoResultFound(undefined, noResults) : noResults()) : renderSuggestions()}
       {renderFooter()}
