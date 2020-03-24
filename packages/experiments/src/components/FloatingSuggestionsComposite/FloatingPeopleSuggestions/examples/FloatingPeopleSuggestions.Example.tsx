@@ -98,7 +98,6 @@ export const FloatingPeopleSuggestionsExample = (): JSX.Element => {
     ref: null,
     key: 'normal',
     removeButtonAriaLabel: 'Remove',
-    defaultSelectedItems: [mru[0]],
     selectedItems: [mru[1]],
     selection: selectionListSelection,
     onItemsRemoved: () => {
