@@ -61,7 +61,7 @@ export const BaseFloatingSuggestions = <T extends {}>(props: IBaseFloatingSugges
             noResultsFoundText={noResultsFoundText}
             maximumSuggestionsToShow={maximumSuggestionsToShow}
             suggestionsContainerAriaLabel={suggestionsContainerAriaLabel}
-            selectedSuggestionIndex={selectedSuggestionIndex ? selectedSuggestionIndex : 0}
+            selectedSuggestionIndex={selectedSuggestionIndex}
             suggestionsHeaderText={suggestionsHeaderText}
           />
         </Callout>

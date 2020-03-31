@@ -80,6 +80,17 @@ export const FloatingPeopleSuggestionsExample = (): JSX.Element => {
     });
   };
 
+  const _getItemsCopyText = (itemsToCopy: IPersonaProps[]): string => {
+    let copyText = '';
+    if (itemsToCopy && itemsToCopy.length > 0) {
+      itemsToCopy.forEach(item => {
+        copyText = copyText.concat((item.text || '') + ',');
+      });
+    }
+
+    return copyText;
+  };
+
   const selectionListSelection: Selection = new Selection();
 
   const floatingPeoplePickerProps = {
@@ -102,7 +113,8 @@ export const FloatingPeopleSuggestionsExample = (): JSX.Element => {
     selection: selectionListSelection,
     onItemsRemoved: () => {
       console.log('example onItemsRemoved');
-    }
+    },
+    getItemCopyText: _getItemsCopyText
   } as ISelectedPeopleListProps<IPersonaProps>;
 
   return (
